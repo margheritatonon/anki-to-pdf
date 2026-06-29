@@ -84,3 +84,23 @@ def generate_pdf(cards):
     c.save()
     buffer.seek(0)
     return buffer
+
+
+# STREAMLIT APP
+st.set_page_config(page_title="Anki PDF Converter")
+
+st.title("Ankis to PDF")
+st.write("Export your Anki deck as a txt file, making sure you have checked the 'Include unique identifiers' box. Then upload the file below to convert it into a PDF.")
+
+uploaded_file = st.file_uploader("Choose your Anki text file", type=['txt'])
+
+if uploaded_file is not None:
+    file_bytes = uploaded_file.read()
+    cards = parse_anki_file(io.BytesIO(file_bytes))
+
+if cards:
+    st.success(f"Successfully read {len(cards)} flashcards!")
+    pdf_data = generate_pdf(cards)
+    st.download_button(label = "Download PDF", data = pdf_data, file_name = "flashcards.pdf", mime="application/pdf")
+else:
+    st.error("No valid flashcards found in the uploaded file. Please ensure the file is formatted correctly.")
