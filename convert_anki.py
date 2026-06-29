@@ -86,7 +86,7 @@ def generate_pdf(cards):
     return buffer
 
 
-# STREAMLIT APP
+# STREAMLIT APP (to run this locally, use streamlit run convert_anki.py in your terminal)
 st.set_page_config(page_title="Anki PDF Converter")
 
 st.title("Ankis to PDF")
