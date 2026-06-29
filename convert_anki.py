@@ -98,9 +98,9 @@ if uploaded_file is not None:
     file_bytes = uploaded_file.read()
     cards = parse_anki_file(io.BytesIO(file_bytes))
 
-if cards:
-    st.success(f"Successfully read {len(cards)} flashcards!")
-    pdf_data = generate_pdf(cards)
-    st.download_button(label = "Download PDF", data = pdf_data, file_name = "flashcards.pdf", mime="application/pdf")
-else:
-    st.error("No valid flashcards found in the uploaded file. Please ensure the file is formatted correctly.")
+    if cards:
+        st.success(f"Successfully read {len(cards)} flashcards!")
+        pdf_data = generate_pdf(cards)
+        st.download_button(label = "Download PDF", data = pdf_data, file_name = "flashcards.pdf", mime="application/pdf")
+    else:
+        st.error("No valid flashcards found in the uploaded file. Please ensure the file is formatted correctly.")
